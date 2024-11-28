@@ -56,8 +56,8 @@ def publish(client):
     while True:
 
         # sensores simulados
-        sensor = 50
-        sensor_critico = 120
+        sensor = 40
+        sensor_critico = 140
 
         # mensajes a publicar
         msg = f"CEEDER/2/911/temperatura "
@@ -75,14 +75,14 @@ def publish(client):
 
         # se publica el mensaje y se relaciona al topico con el que esta
         # estructurado
-        result = client.publish(topic, msg3, retain=False)
-        result1 = client.publish(topic2, msg1, retain=False)
-        result2 = client.publish(topic3, msg6, retain=False)
-        result3 = client.publish(topic4, msg7, retain=False)
+        result = client.publish(topic, msg3, retain=True)
+        result1 = client.publish(topic2, msg1, retain=True)
+        result2 = client.publish(topic3, msg6, retain=True)
+        result3 = client.publish(topic4, msg7, retain=True)
 
-        result4 = client.publish(topic5, msg8, retain=False)
-        result5 = client.publish(topic6, msg9, retain=False)
-        result6 = client.publish(topic7, msg10, retain=False)
+        result4 = client.publish(topic5, msg8, retain=True)
+        result5 = client.publish(topic6, msg9, retain=True)
+        result6 = client.publish(topic7, msg10, retain=True)
 
         status = result[0]
 
