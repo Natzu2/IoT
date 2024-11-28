@@ -71,7 +71,7 @@ def publish(client):
 
         msg8 = f'Sensor termico/funcionando'
         msg9 = f'{sensor_critico}°C/nivel: critico'
-        msg10 = f'Enviar alerta si la temperatura supera los 90°C'
+        msg10 = f'Temperatura > 90°C/apague el sistema/tome medidas de seguridad'
 
         # se publica el mensaje y se relaciona al topico con el que esta
         # estructurado
