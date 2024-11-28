@@ -57,53 +57,50 @@ def publish(client):
 
         # sensores simulados
         sensor = 40
-        sensor_critico = 140
+        sensor_critico = 150
 
         # mensajes a publicar
-        msg = f"CEEDER/2/911/temperatura "
-        msg1 = f"CEEDER/2/911/{sensor}°C "
         msg2 = fecha()
-        msg3 = f"{msg}{msg2}"
-        msg4 = f"CEEDER/alarma/alerta/Peligro "
-        msg5 = f"CEEDER/hvac/temperatura/{sensor}°C "
-        msg6 = f"{msg4}{msg2}"
-        msg7 = f"{msg5}{msg2}"
+        msg = f"CEEDER/2/911/temperatura " + f'hora {msg2}'
+        msg1 = f"CEEDER/2/911/{sensor}°C " + f'hora {msg2}'
+        msg3 = f"CEEDER/alarma/alerta/Peligro " + f'hora {msg2}'
+        msg4 = f"CEEDER/hvac/temperatura/{sensor}°C " + f'hora {msg2}'
 
-        msg8 = f'Sensor termico/funcionando'
-        msg9 = f'{sensor_critico}°C/nivel: critico'
-        msg10 = f'Temperatura > 90°C/apague el sistema/tome medidas de seguridad'
+        msg5 = f'Sensor termico/funcionando ' + f'hora {msg2}'
+        msg6 = f'{sensor_critico}°C/nivel: critico ' + f'hora {msg2}'
+        msg7 = f'Temperatura > 90°C/apague el sistema/tome medidas de seguridad ' + f'hora {msg2}'
 
         # se publica el mensaje y se relaciona al topico con el que esta
         # estructurado
-        result = client.publish(topic, msg3, retain=True)
+        result = client.publish(topic, msg, retain=True)
         result1 = client.publish(topic2, msg1, retain=True)
-        result2 = client.publish(topic3, msg6, retain=True)
-        result3 = client.publish(topic4, msg7, retain=True)
+        result2 = client.publish(topic3, msg3, retain=True)
+        result3 = client.publish(topic4, msg4, retain=True)
 
-        result4 = client.publish(topic5, msg8, retain=True)
-        result5 = client.publish(topic6, msg9, retain=True)
-        result6 = client.publish(topic7, msg10, retain=True)
+        result4 = client.publish(topic5, msg5, retain=True)
+        result5 = client.publish(topic6, msg6, retain=True)
+        result6 = client.publish(topic7, msg7, retain=False)
 
         status = result[0]
 
         # indicamos una condición, si no existe mensaje ya publicado entonces publica los mensajes
         # en caso de algun problema indicara el topico donde fue imposible publicar el mensaje
         if status == 0:
-            print(f"Send `{msg}` hora '{msg2}' to topic `{topic}`")
-            print(f"Send `{msg1}` hora '{msg2}' to topic `{topic2}`")
-            print(f"Send `{msg4}` hora '{msg2}' to topic `{topic3}`")
-            print(f"Send `{msg5}` hora '{msg2}' to topic `{topic4}`")
+            print(f"Send `{msg}` to topic `{topic}`")
+            print(f"Send `{msg1}` to topic `{topic2}`")
+            print(f"Send `{msg3}` to topic `{topic3}`")
+            print(f"Send `{msg4}` to topic `{topic4}`")
 
-            print(f"Send `{msg8}` hora '{msg2}' to topic `{topic5}`")
-            print(f"Send `{msg9}` hora '{msg2}' to topic `{topic6}`")
-            print(f"Send `{msg10}` hora '{msg2}' to topic `{topic7}`")
+            print(f"Send `{msg5}` to topic `{topic5}`")
+            print(f"Send `{msg6}` to topic `{topic6}`")
+            print(f"Send `{msg7}` to topic `{topic7}`")
         else:
             print(f"Failed to send message to topic {topic}")
 
         # se publican los mensajes y se indica con time.sleep cuantos segundos
         # debe esperar antes de publicar mensajes nuevos
         msg_count += 1
-        time.sleep(30)
+        time.sleep(20)
 
 # creamos una funcion para ejecutar la funcion publish en la conexion del cliente
 # y se indica que al iniciar comience un ciclo

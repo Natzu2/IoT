@@ -50,6 +50,9 @@ def subscribe(client: mqtt_client):
    def on_message(client, userdata, msg):
        print(f"From `{msg.topic}` topic Received `{msg.payload.decode()}` ")
 
+   client.subscribe(topic)
+   client.subscribe(topic2)
+   client.subscribe(topic3)
    client.subscribe(topic4)
    client.subscribe(topic5)
    client.subscribe(topic6)
